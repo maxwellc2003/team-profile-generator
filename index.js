@@ -18,7 +18,7 @@ const questions = [{
     type: "list",
     name: "role",
     message: "Select the role of the employee",
-    choices: ['Intern', 'Employee', 'Engineer', 'Manager'],
+    choices: ['Intern', 'Engineer', 'Manager'],
 }, {
     type: "text",
     name: "name",
