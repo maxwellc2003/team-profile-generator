@@ -1,9 +1,20 @@
+.blue-bg {
+    background-color: blue;
+}
+
+.grey-bg {
+    background-color: grey;
+}
+
 .border {
     border: 3px solid black;
 }
 
 header {
     padding: 25px;
+    text-align: center;
+    background-color: rgb(168, 63, 63);
+    color: white;
 }
 
 main {
@@ -12,12 +23,24 @@ main {
 }
 
 .card {
-    height: 250px;
-    width: 150px;
+    margin: 0 5px 0 5px;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    width: 350px;
+}
+
+.card h2, a {
+    padding: 5px;
+}
+
+.card a {
+    font-size: x-large;
+    margin: 19.92px 0 19.92px 0;
 }
 
 .container {
-    width: 60%;
+    width: 80%;
     display: flex;
     justify-content: center;
     align-items: center;

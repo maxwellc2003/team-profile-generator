@@ -38,7 +38,7 @@ const promptLoop = () => {
     inquirer.prompt(questions)
     .then (({role, name, id, email}) => {
         const employee = new roleMap[role](name, id, email, role)
-        if (role = Intern) {
+        if (role === 'Intern') {
             inquirer.prompt({
                 type: "text",
                 name: "school",
@@ -48,18 +48,20 @@ const promptLoop = () => {
               }).then(() => {
                 const card = (
                 `<div class="card border">
-                <h2>${employee.name}</h2>
-                <h2>${employee.role}</h2>
-                <h2>${employee.id}</h2>
-                <h2>${employee.email}</h2>
+                <h2>Name: ${employee.name}</h2>
+                <h2>Role: ${employee.role}</h2>
+                <h2>ID: ${employee.id}</h2>
+                <a href="mailto:${employee.email}">${employee.email}</a>
                 <h2>${employee.school}</h2>        
                 </div>`
                 )
                 cardList.push(card)
-              })
+              }).then(() => {
+                askAgain()
+                })
                     .catch((err) => {
                     console.error(err)});
-        } else if (role = Engineer) {
+        } else if (role === 'Engineer') {
             inquirer.prompt({
                 type: "text",
                 name: "github",
@@ -69,18 +71,20 @@ const promptLoop = () => {
               }).then(() => {
                 const card = (
                 `<div class="card border">
-                <h2>${employee.name}</h2>
-                <h2>${employee.role}</h2>
-                <h2>${employee.id}</h2>
-                <h2>${employee.email}</h2>
-                <h2>${employee.github}</h2> 
+                <h2>Name: ${employee.name}</h2>
+                <h2>Role: ${employee.role}</h2>
+                <h2>ID: ${employee.id}</h2>
+                <a href="mailto:${employee.email}">${employee.email}</a>
+                <a href="https://github.com/${employee.github}">Github Account</a>  
                 </div>`
                 )
                 cardList.push(card)
-              })
+              }).then(() => {
+                askAgain()
+                })
                     .catch((err) => {
                     console.error(err)});
-        } else if (role = Manager) {
+        } else if (role === 'Manager') {
             inquirer.prompt({
                 type: "text",
                 name: "officeNumber",
@@ -90,28 +94,31 @@ const promptLoop = () => {
               }).then(() => {
                 const card = (
                 `<div class="card border">
-                <h2>${employee.name}</h2>
-                <h2>${employee.role}</h2>
-                <h2>${employee.id}</h2>
-                <h2>${employee.email}</h2>
+                <h2>Name: ${employee.name}</h2>
+                <h2>Role: ${employee.role}</h2>
+                <h2>ID: ${employee.id}</h2>
+                <a href="mailto:${employee.email}">${employee.email}</a>
                 <h2>${employee.officeNumber}</h2> 
                 </div>`
                 )
                 cardList.push(card)
-              })
+              }).then(() => {
+                    askAgain()
+                })
                     .catch((err) => {
                     console.error(err)});
         }
       })
-      .then(() => {
+
+
+      function askAgain() {
         inquirer.prompt({
             name: "choice",
             type: "confirm",
             message: "Do you want to add another employee?",
         })
-      })
      .then((choice) => {
-        if(choice === true){
+        if(choice.choice === true){
             return promptLoop();
         } else {
             fs.writeFile('./dist/index.html', 
@@ -122,17 +129,17 @@ const promptLoop = () => {
            <meta charset="UTF-8">
            <meta http-equiv="X-UA-Compatible" content="IE=edge">
            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-           <title>Document</title>
+           <title>My Team</title>
            <link rel="stylesheet" href="./styles.css">
        </head>
        <body>
-           <header class="border">
+           <header>
                <h1>Document</h1>
            </header>
        
            <main>
-               <div class="container border">` +
-               cardList +
+               <div class="container">` +
+               cardList.join('') +
                    `</div>
            </main>
        
@@ -147,6 +154,6 @@ const promptLoop = () => {
       })
       .catch((err) => {
         console.error(err)});
-    };
+    }};
 
 promptLoop()
